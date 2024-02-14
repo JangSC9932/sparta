@@ -4,6 +4,7 @@
 1. render_template : html파일을 가져와서 보여준다
 '''
 from flask import Flask, render_template, request, redirect, url_for
+from datetime import datetime
 app = Flask(__name__)
 
 # DB 기본 코드
@@ -20,13 +21,20 @@ db = SQLAlchemy(app)
 ## DB Person 테이블 생성
 class Person(db.Model):
     person_id = db.Column(db.Integer, primary_key=True)
-    person_nm = db.Column(db.String(100), nullable=True)
-    person_intro = db.Column(db.String(10000), nullable=False)
     person_like = db.Column(db.Integer, default=0)
-    person_image_url = db.Column(db.String(3000), nullable=False)
 
     def __repr__(self):
-        return f'{self.person_id} | {self.person_nm} | {self.person_intro} | {self.person_like} | {self.person_image_url}'
+        return f'{self.person_id} | {self.person_like}'
+
+## DB book 테이블 생성
+class Book(db.Model):
+    book_id = db.Column(db.Integer, primary_key=True)
+    person_id = db.Column(db.Integer, nullable=False)
+    book_text = db.Column(db.String(1000), nullable=True)
+    insert_dt = db.Column(db.DateTime, default=datetime.now)
+
+    def __repr__(self):
+        return f'{self.book_id} | {self.person_id} | {self.book_text} | {self.insert_dt}'
 
 with app.app_context():
     db.create_all()
@@ -37,8 +45,14 @@ def home():
     ## DB Person 테이블 데이터 가져오기
     person_list = Person.query.all()
     print(person_list)
-    return render_template('index.html',data = person_list)
 
+    ## DB Book 데이블 데이터 가져오기
+    book_list = Book.query.all()
+    print(book_list)
+
+    return render_template('index.html',data = person_list, book = book_list)
+
+## 좋아요 기능 구현
 @app.route("/addLike")
 def add_like():
 
@@ -53,6 +67,20 @@ def add_like():
 
     return redirect(url_for('home'))
 
+## 방명록 기능 구현
+@app.route("/addBook")
+def add_book():
+
+    ## html에서 데이터 가져오기
+    book_text = request.args.get("book_text")
+    person_id = request.args.get("person_id")
+
+    ## DB에서 해당하는 프로필( person_id )에 맞게 방명록 등록
+    book = Book( person_id = person_id, book_text = book_text)
+    db.session.add(book)
+    db.session.commit()
+
+    return redirect(url_for('home'))
 
 if __name__ == "__main__":
     app.run(debug=True)

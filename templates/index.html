@@ -105,7 +105,14 @@
                     <p>좋아요 : {{ em.person_like }} </p>
                 {% endif %}
             {% endfor %}
-
+            
+            <!-- DB 데이터 목록에서 프로필 ID에 해당하는 방명록 목록 가져오기 -->
+            {% for element in book %}
+                {% if element.person_id == 1 %}
+                    <p> {{ element.book_text }} </p>
+                {% endif %}
+            {% endfor %}
+            
         </div>
 
         <div class="person" onclick="showModal('person2')">
@@ -115,6 +122,13 @@
             {% for em in data %}
                 {% if em.person_id == 2 %}
                     <p>좋아요 : {{ em.person_like }} </p>
+                {% endif %}
+            {% endfor %}
+            
+            <!-- DB 데이터 목록에서 프로필 ID에 해당하는 방명록 목록 가져오기 -->
+            {% for element in book %}
+                {% if element.person_id == 2 %}
+                    <p> {{ element.book_text }} </p>
                 {% endif %}
             {% endfor %}
 
@@ -130,6 +144,13 @@
                 {% endif %}
             {% endfor %}
 
+            <!-- DB 데이터 목록에서 프로필 ID에 해당하는 방명록 목록 가져오기 -->
+            {% for element in book %}
+                {% if element.person_id == 3 %}
+                    <p> {{ element.book_text }} </p>
+                {% endif %}
+            {% endfor %}
+
         </div>
 
         <div class="person" onclick="showModal('person4')">
@@ -139,6 +160,13 @@
             {% for em in data %}
                 {% if em.person_id == 4 %}
                     <p>좋아요 : {{ em.person_like }} </p>
+                {% endif %}
+            {% endfor %}
+
+            <!-- DB 데이터 목록에서 프로필 ID에 해당하는 방명록 목록 가져오기 -->
+            {% for element in book %}
+                {% if element.person_id == 4 %}
+                    <p> {{ element.book_text }} </p>
                 {% endif %}
             {% endfor %}
 
@@ -154,11 +182,19 @@
                 {% endif %}
             {% endfor %}
 
+            <!-- DB 데이터 목록에서 프로필 ID에 해당하는 방명록 목록 가져오기 -->
+            {% for element in book %}
+                {% if element.person_id == 1 %}
+                    <p> {{ element.book_text }} </p>
+                {% endif %}
+            {% endfor %}
+
         </div>
 
     </main>
     <form id="frm" action="{{ url_for('add_like') }}" method="get">
         <input type="hidden" id="person_id" name="person_id" value=""/>
+        <input type="hidden" id="book_text" name="book_text" value=""/>
         <div id="person1" class="modal">
             <div class="modal-content">
                 <span class="close" onclick="closeModal('person1')">&times;</span>
@@ -175,6 +211,7 @@
                         <p> 부모: 손웅정, 길은자 </p>
                         <p> 키: 183cm</p>
                         <button type="button" class="btn btn-danger" onclick="fn_add_like(1,'손흥민');">좋아요</button>
+                        <input type="text" name="input_text" placeholder="방명록 입력"/> <button type="button" class="btn btn-danger" onclick="fn_add_book(1);">등록</button>
                     </div>
                 </div>
             </div>
@@ -195,6 +232,7 @@
                         <p> 부모: 손웅정, 길은자 </p>
                         <p> 키: 183cm</p>
                         <button type="button" class="btn btn-danger" onclick="fn_add_like(2,'김민재');">좋아요</button>
+                        <input type="text" name="input_text" placeholder="방명록 입력"/> <button type="button" class="btn btn-danger" onclick="fn_add_book(2);">등록</button>
                     </div>
                 </div>
             </div>
@@ -215,6 +253,7 @@
                         <p> 부모: 손웅정, 길은자 </p>
                         <p> 키: 183cm</p>
                         <button type="button" class="btn btn-danger" onclick="fn_add_like(3,'이강인');">좋아요</button>
+                        <input type="text" name="input_text" placeholder="방명록 입력"/> <button type="button" class="btn btn-danger" onclick="fn_add_book(3);">등록</button>
                     </div>
                 </div>
             </div>
@@ -235,6 +274,7 @@
                         <p> 부모: 손웅정, 길은자 </p>
                         <p> 키: 183cm</p>
                         <button type="button" class="btn btn-danger" onclick="fn_add_like(4,'황희찬');">좋아요</button>
+                        <input type="text" name="input_text" placeholder="방명록 입력"/> <button type="button" class="btn btn-danger" onclick="fn_add_book(4);">등록</button>
                     </div>
                 </div>
             </div>
@@ -255,6 +295,7 @@
                         <p> 부모: 손웅정, 길은자 </p>
                         <p> 키: 183cm</p>
                         <button type="button" class="btn btn-danger" onclick="fn_add_like(5,'박지성');">좋아요</button>
+                        <input type="text" name="input_text" placeholder="방명록 입력"/> <button type="button" class="btn btn-danger" onclick="fn_add_book(5);">등록</button>
                     </div>
                 </div>
             </div>
@@ -281,6 +322,23 @@
 
             // form 태그 submit 하기
             frm = document.getElementById("frm") 
+            frm.action = "{{ url_for('add_like') }}"
+            frm.submit();
+        }
+
+        /*
+         *  방명록 이벤트
+         */
+        function fn_add_book(person_id) {
+
+            document.getElementsByName("person_id")[0].value = person_id // 프로필 ID
+
+            index = person_id - 1
+            document.getElementsByName("book_text")[0].value = document.getElementsByName("input_text")[index].value // 방문록 문구
+
+            // form 태그 submit 하기
+            frm = document.getElementById("frm") 
+            frm.action = "{{ url_for('add_book') }}"
             frm.submit();
         }
 
