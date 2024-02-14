@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>페이지 제목</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        header {
+            background-color: #333;
+            color: white;
+            padding: 50px;
+            text-align: center;
+        }
+        main {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        .person {
+            margin: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+        .person img {
+            width: 200px;
+            height: 200px;
+            border-radius: 10px;
+            border: 2px solid #333;
+            cursor: pointer;
+        }
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0,0,0,0.9);
+        }
+        .modal-content {
+            margin: auto;
+            background-color: #fefefe;
+            border-radius: 10px;
+            padding: 20px;
+            width: 70%;
+            height: 60%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+        .person-info {
+            flex: 1;
+            padding: 0 20px;
+            overflow-y: auto;
+        }
+        .person-info ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        .person-info li {
+            margin-bottom: 10px;
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+        .person-info li .heart {
+            margin-right: 5px;
+            color: red;
+            cursor: pointer;
+        }
+        .person-info .heart-count {
+            font-size: 14px;
+            margin-left: 0px;
+            margin-right: auto;
+        }
+        .person-info button {
+            background: none;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            align-items: center;
+        }
+        .person-info button:hover {
+            color: red;
+        }
+        .heart {
+            color: red;
+        }
+        .close {
+            color: #aaa;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+            position: fixed;
+            top: 20px;
+            right: 20px;
+        }
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+        }
+        /* 추가된 스타일 */
+        .modal-content img {
+            width: 250px;
+            height: 300px;
+            position: absolute;
+            top: 100px;
+            right: 20px;
+            border-radius: 10px;
+            border: 2px solid #333;
+        }
+        #mainHeart {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            font-size: 24px;
+            color: red;
+            display: none; /* 초기에는 숨김 */
+        }
+    </style>
+
+</head>
+<body>
+    <header>
+        <h1>페이지 제목</h1>
+    </header>
+    <main>
+        {% for person in data %}
+        <div class="person" onclick="showModal('{{ person.person_id }}')">
+            <img src="{{ person.person_image_url }}" alt="{{ person.person_nm }}">
+            <div class="person-info">
+                <ul>
+                    <li><button onclick="like('{{ person.person_id }}', 1)"><span class="heart">&hearts;</span></button> {{ person.person_like }}</li>
+                </ul>
+            </div>
+        </div>
+        {% endfor %}
+    </main>
+     <div id="person1" class="modal" onclick="closeModal('person1')">
+        <span class="close">&times;</span>
+        <div class="modal-content">
+            <div class="person-info">
+                <h2>인물 1의 자기소개</h2>
+                <!-- 사진 추가 -->
+                <img src="person1.jpg" alt="인물1">
+                <ul>
+                    <li><button onclick="like('person1', 1)"><span class="heart">&hearts;</span></button> 자기 소개 1</li>
+                    <li><button onclick="like('person1', 2)"><span class="heart">&hearts;</span></button> 자기 소개 2</li>
+                    <li><button onclick="like('person1', 3)"><span class="heart">&hearts;</span></button> 자기 소개 3</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div id="person2" class="modal" onclick="closeModal('person2')">
+        <span class="close">&times;</span>
+        <div class="modal-content">
+            <div class="person-info">
+                <h2>나는 정호</h2>
+                <!-- 사진 추가 -->
+                <img src="https://i.postimg.cc/NfzmqkQJ/IMG-0433.jpg" alt="인물2">
+                <ul>
+                    <li><button onclick="like('person2', 1)"><span class="heart">&hearts;</span></button> INFJ </li>
+                    <li><button onclick="like('person2', 2)"><span class="heart">&hearts;</span></button> 영화보기 </li>
+                    <li><button onclick="like('person2', 3)"><span class="heart">&hearts;</span></button> 일본드라마 </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    {% for person in data %}
+    <div id="{{ person.person_id }}" class="modal" onclick="closeModal('{{ person.person_id }}')">
+        <span class="close">&times;</span>
+        <div class="modal-content">
+            <div class="person-info">
+                <h2>{{ person.person_nm }}</h2>
+                <img src="{{ person.person_image_url }}" alt="{{ person.person_nm }}">
+                <ul>
+                    {% for intro in person.person_intro %}
+                    <li><button onclick="like('{{ person.person_id }}', {{ loop.index }})"><span class="heart">&hearts;</span></button>{{ intro }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+
+    <!-- 메인 하트 -->
+    <div id="mainHeart">{{ total_likes }}</div>
+
+    <!-- JavaScript -->
+    <script>
+        // 로컬 스토리지에서 데이터를 가져와 likes 변수에 할당하거나, 없으면 빈 객체를 할당.
+        var likes = JSON.parse(localStorage.getItem('likes')) || {};
+
+        function showModal(personId) {
+            var modal = document.getElementById(personId);
+            modal.style.display = "block";
+        }
+
+        function closeModal(personId) {
+            var modal = document.getElementById(personId);
+            modal.style.display = "none";
+        }
+
+        function like(personId, index) {
+            // 해당 personId에 대한 likes가 없으면 초기화.
+            if (!likes[personId]) {
+                likes[personId] = [0, 0, 0];
+            }
+            likes[personId][index - 1]++;
+            document.getElementById(`${personId}Count`).textContent = likes[personId].reduce((a, b) => a + b, 0);
+
+            // 메인 화면에 있는 하트 업데이트
+            var totalLikes = Object.values(likes).reduce((a, b) => a.concat(b), []).reduce((a, b) => a + b, 0);
+            document.getElementById('mainHeart').textContent = totalLikes;
+            document.getElementById('mainHeart').style.display = totalLikes > 0 ? 'block' : 'none'; // 하트가 1개 이상일 때 보이도록 설정
+
+            // 로컬 스토리지에 데이터를 저장합니다.
+            localStorage.setItem('likes', JSON.stringify(likes));
+        }
+
+        // 페이지가 로드될 때, 로컬 스토리지에 저장된 데이터를 기반으로 초기화.
+        window.onload = function() {
+            var totalLikes = Object.values(likes).reduce((a, b) => a.concat(b), []).reduce((a, b) => a + b, 0);
+            document.getElementById('mainHeart').textContent = totalLikes;
+            document.getElementById('mainHeart').style.display = totalLikes > 0 ? 'block' : 'none'; // 하트가 1개 이상일 때 보이도록 설정
+
+            for (var personId in likes) {
+                document.getElementById(`${personId}Count`).textContent = likes[personId].reduce((a, b) => a + b, 0);
+            }
+        }
+    </script>
+
+</body>
+</html>

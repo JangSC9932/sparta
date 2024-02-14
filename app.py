@@ -20,7 +20,8 @@ with app.app_context():
 @app.route("/")
 def home():
     person_list = Person.query.all()
-    return render_template('index.html', data=person_list)
+    total_likes = sum(person.person_like for person in person_list)  # 총 좋아요 수 계산
+    return render_template('index.html', data=person_list, total_likes=total_likes)  # total_likes를 템플릿에 전달
 
 @app.route("/addLike")
 def add_like():
@@ -29,6 +30,11 @@ def add_like():
     person.person_like += 1
     db.session.commit()
     return redirect(url_for('home'))
+
+@app.route("/person/<int:person_id>")
+def get_person(person_id):
+    person = Person.query.get_or_404(person_id)
+    return render_template('person.html', person=person)
 
 if __name__ == "__main__":
     app.run(debug=True)
