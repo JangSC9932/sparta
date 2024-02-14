@@ -1,27 +1,44 @@
 <!DOCTYPE html>
 <html lang="en">
+<<<<<<< HEAD
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>페이지 제목</title>
+=======
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>자기소개 할수있조!</title>
+>>>>>>> a47d3440a641fd5c5508aa53617fb0594559db1d
     <style>
         body {
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
         }
+<<<<<<< HEAD
+=======
+
+>>>>>>> a47d3440a641fd5c5508aa53617fb0594559db1d
         header {
             background-color: #333;
             color: white;
             padding: 50px;
             text-align: center;
         }
+<<<<<<< HEAD
+=======
+
+>>>>>>> a47d3440a641fd5c5508aa53617fb0594559db1d
         main {
             display: flex;
             justify-content: center;
             align-items: center;
             flex-wrap: wrap;
         }
+<<<<<<< HEAD
         .person {
             margin: 20px;
             display: flex;
@@ -36,6 +53,21 @@
             border: 2px solid #333;
             cursor: pointer;
         }
+=======
+
+        .person {
+            margin: 20px;
+            cursor: pointer;
+        }
+
+        .person img {
+            width: 250px;
+            height: 500px;
+            border-radius: 10px;
+            border: 2px solid #333;
+        }
+
+>>>>>>> a47d3440a641fd5c5508aa53617fb0594559db1d
         .modal {
             display: none;
             position: fixed;
@@ -45,6 +77,7 @@
             width: 100%;
             height: 100%;
             overflow: auto;
+<<<<<<< HEAD
             background-color: rgba(0,0,0,0.9);
         }
         .modal-content {
@@ -112,10 +145,32 @@
             top: 20px;
             right: 20px;
         }
+=======
+            background-color: rgb(0, 0, 0);
+            background-color: rgba(0, 0, 0, 0.9);
+        }
+
+        .modal-content {
+            margin: 10px auto;
+            background-color: #fefefe;
+            border-radius: 10px;
+            padding: 20px;
+            max-width: 800px;
+        }
+
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+>>>>>>> a47d3440a641fd5c5508aa53617fb0594559db1d
         .close:hover,
         .close:focus {
             color: black;
             text-decoration: none;
+<<<<<<< HEAD
         }
         /* 추가된 스타일 */
         .modal-content img {
@@ -210,6 +265,241 @@
         // 로컬 스토리지에서 데이터를 가져와 likes 변수에 할당하거나, 없으면 빈 객체를 할당.
         var likes = JSON.parse(localStorage.getItem('likes')) || {};
 
+=======
+            cursor: pointer;
+        }
+
+
+        /* modal 창 이미지 크기 조절 */
+
+        .modal_box {
+            display: flex;
+            justify-content: space-around;
+        }
+
+        .modal_person img {
+            width: 350px;
+            height: 500px;
+            border-radius: 10px;
+            border: 2px solid #333;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <h1>자기소해 할수있조</h1>
+    </header>
+    <main>
+
+        <div class="person" onclick="showModal('person1')">
+            <img src="{{ url_for('static', filename='image/son.jpeg') }}" alt="인물1">
+            
+            <!-- DB 데이터 목록에서 해당 프로필 좋아요 수 가져오기 -->
+            {% for em in data %}
+                {% if em.person_id == 1 %}
+                    <p>좋아요 : {{ em.person_like }} </p>
+                {% endif %}
+            {% endfor %}
+            
+            <!-- DB 데이터 목록에서 프로필 ID에 해당하는 방명록 목록 가져오기 -->
+            {% for element in book %}
+                {% if element.person_id == 1 %}
+                    <p> {{ element.book_text }} </p>
+                {% endif %}
+            {% endfor %}
+            
+        </div>
+
+        <div class="person" onclick="showModal('person2')">
+            <img src="{{ url_for('static', filename='image/kim.jpg') }}" alt="인물2">
+
+            <!-- DB 데이터 목록에서 해당 프로필 좋아요 수 가져오기 -->
+            {% for em in data %}
+                {% if em.person_id == 2 %}
+                    <p>좋아요 : {{ em.person_like }} </p>
+                {% endif %}
+            {% endfor %}
+            
+            <!-- DB 데이터 목록에서 프로필 ID에 해당하는 방명록 목록 가져오기 -->
+            {% for element in book %}
+                {% if element.person_id == 2 %}
+                    <p> {{ element.book_text }} </p>
+                {% endif %}
+            {% endfor %}
+
+        </div>
+
+        <div class="person" onclick="showModal('person3')">
+            <img src="{{ url_for('static', filename='image/lee.jpg') }}" alt="인물3">
+
+            <!-- DB 데이터 목록에서 해당 프로필 좋아요 수 가져오기 -->
+            {% for em in data %}
+                {% if em.person_id == 3 %}
+                    <p>좋아요 : {{ em.person_like }} </p>
+                {% endif %}
+            {% endfor %}
+
+            <!-- DB 데이터 목록에서 프로필 ID에 해당하는 방명록 목록 가져오기 -->
+            {% for element in book %}
+                {% if element.person_id == 3 %}
+                    <p> {{ element.book_text }} </p>
+                {% endif %}
+            {% endfor %}
+
+        </div>
+
+        <div class="person" onclick="showModal('person4')">
+            <img src="{{ url_for('static', filename='image/hwang.jpg') }}" alt="인물4">
+
+            <!-- DB 데이터 목록에서 해당 프로필 좋아요 수 가져오기 -->
+            {% for em in data %}
+                {% if em.person_id == 4 %}
+                    <p>좋아요 : {{ em.person_like }} </p>
+                {% endif %}
+            {% endfor %}
+
+            <!-- DB 데이터 목록에서 프로필 ID에 해당하는 방명록 목록 가져오기 -->
+            {% for element in book %}
+                {% if element.person_id == 4 %}
+                    <p> {{ element.book_text }} </p>
+                {% endif %}
+            {% endfor %}
+
+        </div>
+
+        <div class="person" onclick="showModal('person5')">
+            <img src="{{ url_for('static', filename='image/park.jpg') }}" alt="인물5">
+
+            <!-- DB 데이터 목록에서 해당 프로필 좋아요 수 가져오기 -->
+            {% for em in data %}
+                {% if em.person_id == 5 %}
+                    <p>좋아요 : {{ em.person_like }} </p>
+                {% endif %}
+            {% endfor %}
+
+            <!-- DB 데이터 목록에서 프로필 ID에 해당하는 방명록 목록 가져오기 -->
+            {% for element in book %}
+                {% if element.person_id == 1 %}
+                    <p> {{ element.book_text }} </p>
+                {% endif %}
+            {% endfor %}
+
+        </div>
+
+    </main>
+    <form id="frm" action="{{ url_for('add_like') }}" method="get">
+        <input type="hidden" id="person_id" name="person_id" value=""/>
+        <input type="hidden" id="book_text" name="book_text" value=""/>
+        <div id="person1" class="modal">
+            <div class="modal-content">
+                <span class="close" onclick="closeModal('person1')">&times;</span>
+                <div class="modal_box">
+                    <div class="modal_person">
+                        <img src="{{ url_for('static', filename='image/son.jpeg') }}" alt="인물1">
+                    </div>
+                    <div class="modal_person" style="width: 350px;">
+                        <h2>손흥민</h2>
+                        <p> 출생: 1992년 7월 8일 (31세), 춘천시 </p>
+                        <p> 현 소속팀: 토트넘 홋스퍼 FC (#7 / 공격수), 대한민국 축구 국가대표팀 (#7 / 공격수), Republic of Korea </p>
+                        <p> 형제자매: 손흥윤 </p>
+                        <p> 팀메이트: 황희찬, 김민재, 황인범, 조현우, 황의조, 이승우, 송범근, 외 개 </p>
+                        <p> 부모: 손웅정, 길은자 </p>
+                        <p> 키: 183cm</p>
+                        <button type="button" class="btn btn-danger" onclick="fn_add_like(1,'손흥민');">좋아요</button>
+                        <input type="text" name="input_text" placeholder="방명록 입력"/> <button type="button" class="btn btn-danger" onclick="fn_add_book(1);">등록</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="person2" class="modal">
+            <div class="modal-content">
+                <span class="close" onclick="closeModal('person2')">&times;</span>
+                <div class="modal_box">
+                    <div class="modal_person">
+                        <img src="{{ url_for('static', filename='image/kim.jpg') }}" alt="인물2">
+                    </div>
+                    <div class="modal_person" style="width: 350px;">
+                        <h2>김민재</h2>
+                        <p> 출생: 1992년 7월 8일 (31세), 춘천시 </p>
+                        <p> 현 소속팀: 토트넘 홋스퍼 FC (#7 / 공격수), 대한민국 축구 국가대표팀 (#7 / 공격수), Republic of Korea </p>
+                        <p> 형제자매: 손흥윤 </p>
+                        <p> 팀메이트: 황희찬, 김민재, 황인범, 조현우, 황의조, 이승우, 송범근, 외 개 </p>
+                        <p> 부모: 손웅정, 길은자 </p>
+                        <p> 키: 183cm</p>
+                        <button type="button" class="btn btn-danger" onclick="fn_add_like(2,'김민재');">좋아요</button>
+                        <input type="text" name="input_text" placeholder="방명록 입력"/> <button type="button" class="btn btn-danger" onclick="fn_add_book(2);">등록</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="person3" class="modal">
+            <div class="modal-content">
+                <span class="close" onclick="closeModal('person3')">&times;</span>
+                <div class="modal_box">
+                    <div class="modal_person">
+                        <img src="{{ url_for('static', filename='image/lee.jpg') }}" alt="인물3">
+                    </div>
+                    <div class="modal_person" style="width: 350px;">
+                        <h2>이강인</h2>
+                        <p> 출생: 1992년 7월 8일 (31세), 춘천시 </p>
+                        <p> 현 소속팀: 토트넘 홋스퍼 FC (#7 / 공격수), 대한민국 축구 국가대표팀 (#7 / 공격수), Republic of Korea </p>
+                        <p> 형제자매: 손흥윤 </p>
+                        <p> 팀메이트: 황희찬, 김민재, 황인범, 조현우, 황의조, 이승우, 송범근, 외 개 </p>
+                        <p> 부모: 손웅정, 길은자 </p>
+                        <p> 키: 183cm</p>
+                        <button type="button" class="btn btn-danger" onclick="fn_add_like(3,'이강인');">좋아요</button>
+                        <input type="text" name="input_text" placeholder="방명록 입력"/> <button type="button" class="btn btn-danger" onclick="fn_add_book(3);">등록</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="person4" class="modal">
+            <div class="modal-content">
+                <span class="close" onclick="closeModal('person4')">&times;</span>
+                <div class="modal_box">
+                    <div class="modal_person">
+                        <img src="{{ url_for('static', filename='image/hwang.jpg') }}" alt="인물4">
+                    </div>
+                    <div class="modal_person" style="width: 350px;">
+                        <h2>황희찬</h2>
+                        <p> 출생: 1992년 7월 8일 (31세), 춘천시 </p>
+                        <p> 현 소속팀: 토트넘 홋스퍼 FC (#7 / 공격수), 대한민국 축구 국가대표팀 (#7 / 공격수), Republic of Korea </p>
+                        <p> 형제자매: 손흥윤 </p>
+                        <p> 팀메이트: 황희찬, 김민재, 황인범, 조현우, 황의조, 이승우, 송범근, 외 개 </p>
+                        <p> 부모: 손웅정, 길은자 </p>
+                        <p> 키: 183cm</p>
+                        <button type="button" class="btn btn-danger" onclick="fn_add_like(4,'황희찬');">좋아요</button>
+                        <input type="text" name="input_text" placeholder="방명록 입력"/> <button type="button" class="btn btn-danger" onclick="fn_add_book(4);">등록</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="person5" class="modal">
+            <div class="modal-content">
+                <span class="close" onclick="closeModal('person5')">&times;</span>
+                <div class="modal_box">
+                    <div class="modal_person">
+                        <img src="{{ url_for('static', filename='image/park.jpg') }}" alt="인물5">
+                    </div>
+                    <div class="modal_person" style="width: 350px;">
+                        <h2>박지성</h2>
+                        <p> 출생: 1992년 7월 8일 (31세), 춘천시 </p>
+                        <p> 현 소속팀: 토트넘 홋스퍼 FC (#7 / 공격수), 대한민국 축구 국가대표팀 (#7 / 공격수), Republic of Korea </p>
+                        <p> 형제자매: 손흥윤 </p>
+                        <p> 팀메이트: 황희찬, 김민재, 황인범, 조현우, 황의조, 이승우, 송범근, 외 개 </p>
+                        <p> 부모: 손웅정, 길은자 </p>
+                        <p> 키: 183cm</p>
+                        <button type="button" class="btn btn-danger" onclick="fn_add_like(5,'박지성');">좋아요</button>
+                        <input type="text" name="input_text" placeholder="방명록 입력"/> <button type="button" class="btn btn-danger" onclick="fn_add_book(5);">등록</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+
+    <script>
+>>>>>>> a47d3440a641fd5c5508aa53617fb0594559db1d
         function showModal(personId) {
             var modal = document.getElementById(personId);
             modal.style.display = "block";
@@ -220,6 +510,7 @@
             modal.style.display = "none";
         }
 
+<<<<<<< HEAD
         function like(personId, index) {
             // 해당 personId에 대한 likes가 없으면 초기화.
             if (!likes[personId]) {
@@ -251,3 +542,38 @@
 
 </body>
 </html>
+=======
+        /*
+         *  좋아요 이벤트 
+         */
+        function fn_add_like(person_id,name) {
+            alert(name + "님의 좋아요 수가 추가되었습니다.") // 알림창 
+            document.getElementsByName("person_id")[0].value = person_id // 히든 태그에 값을 넣기 ( 백엔드에서 데이터를 받기 위해서! )
+
+            // form 태그 submit 하기
+            frm = document.getElementById("frm") 
+            frm.action = "{{ url_for('add_like') }}"
+            frm.submit();
+        }
+
+        /*
+         *  방명록 이벤트
+         */
+        function fn_add_book(person_id) {
+
+            document.getElementsByName("person_id")[0].value = person_id // 프로필 ID
+
+            index = person_id - 1
+            document.getElementsByName("book_text")[0].value = document.getElementsByName("input_text")[index].value // 방문록 문구
+
+            // form 태그 submit 하기
+            frm = document.getElementById("frm") 
+            frm.action = "{{ url_for('add_book') }}"
+            frm.submit();
+        }
+
+    </script>
+</body>
+
+</html>
+>>>>>>> a47d3440a641fd5c5508aa53617fb0594559db1d
