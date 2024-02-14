@@ -17,7 +17,7 @@ app.config['SQLALCHEMY_DATABASE_URI'] =\
 
 db = SQLAlchemy(app)
 
-## DB Person_Jang 테이블 생성
+## DB Person 테이블 생성
 class Person(db.Model):
     person_id = db.Column(db.Integer, primary_key=True)
     person_nm = db.Column(db.String(100), nullable=True)
