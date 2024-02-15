@@ -60,7 +60,7 @@ def add_like():
     person_id = request.args.get("person_id")
     print(person_id)
 
-    ## DB에서 해당하는 프로필 데이터 좋아요수 업데이트
+    ## DB에 해당하는 프로필 데이터 좋아요수 업데이트
     person = Person.query.filter_by(person_id = person_id).first()
     person.person_like = person.person_like + 1
     db.session.commit()
@@ -75,7 +75,7 @@ def add_book():
     book_text = request.args.get("book_text")
     person_id = request.args.get("person_id")
 
-    ## DB에서 해당하는 프로필( person_id )에 맞게 방명록 등록
+    ## DB에 해당하는 프로필( person_id )에 맞게 방명록 등록
     book = Book( person_id = person_id, book_text = book_text)
     db.session.add(book)
     db.session.commit()
